@@ -45,8 +45,12 @@ class Mountain extends Resource
         return [
             ID::make('ID', 'id')->sortable(),
 
+            Text::make('Name', function () {
+                return empty($this->getNickname()) ? $this->getName() : $this->getNickname();
+            })->onlyOnIndex(),
+
             Text::make('Name', 'name')->hideFromIndex(),
-            Text::make('Nickname', 'short_name'),
+            Text::make('Nickname', 'short_name')->hideFromIndex(),
             Text::make('URL', 'url')->hideFromIndex(),
 
             Number::make('lat')->min(-180)->max(180)->step(0.0001)->hideFromIndex(),

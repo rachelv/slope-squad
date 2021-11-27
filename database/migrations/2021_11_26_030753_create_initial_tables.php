@@ -17,7 +17,7 @@ class CreateInitialTables extends Migration
             $table->id();
 
             $table->string('name', 255);
-            $table->string('short_name', 255);
+            $table->string('short_name', 255)->nullable();
             $table->string('url', 255);
 
             $table->float('lat', 8, 4);

@@ -7,6 +7,13 @@ use Laravel\Nova\Resource as NovaResource;
 abstract class Resource extends NovaResource
 {
     /**
+     * The per-page options used the resource index.
+     *
+     * @var array
+     */
+    public static $perPageOptions = [50, 100];
+
+    /**
      * override newModel() to make created_at / updated_at behave like eloquent
      */
     public static function newModel()

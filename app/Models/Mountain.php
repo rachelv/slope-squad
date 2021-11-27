@@ -10,7 +10,7 @@ class Mountain extends SlopeSquadBaseModel
 
     public function getNickname(): string
     {
-        return $this->short_name;
+        return $this->short_name ?? $this->name;
     }
 
     public function getUrl(): string
