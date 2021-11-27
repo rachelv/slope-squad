@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -10,9 +9,6 @@ class SlopeSquadBaseModel extends Model
     // created_at / updated_at columns are epoch ints
     protected $dateFormat = 'U';
 
-    /**
-     * Every model has a PK int id.
-     */
     public function getId(): int
     {
         return $this->id;
@@ -20,11 +16,11 @@ class SlopeSquadBaseModel extends Model
 
     public function getCreatedAt(): Carbon
     {
-        return $this->created_at ?? now();
+        return $this->created_at;
     }
 
     public function getUpdatedAt(): Carbon
     {
-        return $this->updated_at ?? now();
+        return $this->updated_at;
     }
 }

@@ -1,10 +1,12 @@
 <?php
-
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 
 class Season extends Resource
 {
@@ -40,7 +42,14 @@ class Season extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make('ID', 'id')->sortable(),
+            Number::make('Rank', 'rank')->step(1)->sortable(),
+
+            Text::make('Name', 'name'),
+            Boolean::make('Current', 'is_current'),
+
+            DateTime::make('Created At', 'created_at')->hideFromIndex(),
+            DateTime::make('Updated At', 'updated_at')->hideFromIndex(),
         ];
     }
 

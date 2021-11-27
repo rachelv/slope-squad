@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Nova;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -7,6 +6,19 @@ use Laravel\Nova\Resource as NovaResource;
 
 abstract class Resource extends NovaResource
 {
+    /**
+     * override newModel() to make created_at / updated_at behave like eloquent
+     */
+    public static function newModel()
+    {
+        $model = new static::$model;
+        if ($model->getAttribute('created_at') === null) {
+            $model->setAttribute('created_at', now());
+        }
+        $model->setAttribute('updated_at', now());
+        return $model;
+    }
+
     /**
      * Build an "index" query for the given resource.
      *

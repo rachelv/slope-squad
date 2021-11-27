@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 
 class Snowday extends Resource
 {
@@ -40,8 +41,22 @@ class Snowday extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make('ID', 'id')->sortable(),
+            Number::make('Rank', 'rank')->step(1)->sortable(),
+
+            Number::make('Vert', 'vertical')->min(0)->step(1)->hideFromIndex(),
+
+            Text::make('Notes', 'notes')->hideFromIndex(),
+
+            DateTime::make('Created At', 'created_at')->hideFromIndex(),
+            DateTime::make('Updated At', 'updated_at')->hideFromIndex(),
         ];
+
+        /*
+        Text::make('Name', 'name')->hideFromIndex(),
+        Text::make('Nickname', 'short_name'),
+        Text::make('URL', 'url')->hideFromIndex(),
+        */
     }
 
     /**
