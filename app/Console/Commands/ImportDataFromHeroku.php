@@ -3,8 +3,11 @@ namespace App\Console\Commands;
 
 use App\Models\Mountain;
 use App\Models\Season;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ImportDataFromHeroku extends Command
 {
@@ -30,9 +33,55 @@ class ImportDataFromHeroku extends Command
             $this->importMountains();
         } elseif ($table === 'seasons') {
             $this->importSeasons();
+        } elseif ($table === 'users') {
+            $this->importUsers();
         }
 
         return Command::SUCCESS;
+    }
+
+    private function importUsers(): void
+    {
+        $fields = [
+            'id',
+            'name',
+            'email',
+            'confirmed_at',
+            'encrypted_password',
+            'total_mountains',
+            'total_snowdays',
+            'total_seasons',
+            'total_friends',
+            'current_sign_in_at',
+            'created_at',
+            'updated_at',
+        ];
+
+        User::truncate();
+
+        foreach ($this->getFromHeroku('users', $fields) as $sourceUser) {
+            if ($sourceUser->email === null) {
+                $sourceUser->email = Str::slug($sourceUser->name) . '@fake-email.com';
+            }
+
+            $this->line("- importing {$sourceUser->email}");
+
+            $user = new User();
+
+            foreach ($fields as $field) {
+                if ($field === 'confirmed_at') {
+                    $user->email_verified_at = Carbon::parse($sourceUser->confirmed_at)->timestamp;
+                } elseif ($field === 'encrypted_password') {
+                    $user->password = $sourceUser->encrypted_password;
+                } elseif ($field === 'current_sign_in_at') {
+                    $user->last_logged_in_at = Carbon::parse($sourceUser->current_sign_in_at)->timestamp;
+                } else {
+                    $user->{$field} = $sourceUser->{$field};
+                }
+            }
+
+            $user->save();
+        }
     }
 
     private function importMountains(): void

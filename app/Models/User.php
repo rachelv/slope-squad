@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -42,12 +42,58 @@ class User extends SlopeSquadBaseModel implements
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_logged_in_at' => 'datetime',
     ];
+
+    public function getTotalMountains(): int
+    {
+        return $this->total_mountains ?? 0;
+    }
+
+    public function setTotalMountains(int $totalMountains): void
+    {
+        $this->total_mountains = $totalMountains;
+    }
+
+    public function getTotalSnowdays(): int
+    {
+        return $this->total_snowdays ?? 0;
+    }
+
+    public function setTotalSnowdays(int $totalSnowdays): void
+    {
+        $this->total_snowdays = $totalSnowdays;
+    }
+
+    public function getTotalSeasons(): int
+    {
+        return $this->total_seasons ?? 0;
+    }
+
+    public function setTotalSeasons(int $totalSeasons): void
+    {
+        $this->total_seasons = $totalSeasons;
+    }
+
+    public function getTotalFriends(): int
+    {
+        return $this->total_friends ?? 0;
+    }
+
+    public function setTotalFriends(int $totalFriends): void
+    {
+        $this->total_friends = $totalFriends;
+    }
+
+    public function getLastLoggedInAt(): Carbon
+    {
+        return $this->last_logged_in_at ?? new Carbon(0);
+    }
+
+    public function setLastLoggedInAt(int $lastLoggedInAt): void
+    {
+        $this->last_logged_in_at = $lastLoggedInAt;
+    }
 }

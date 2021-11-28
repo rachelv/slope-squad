@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
@@ -44,22 +45,31 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            Gravatar::make()->maxWidth(50)->onlyOnDetail(),
 
-            Text::make('Name')
+            Text::make('Name', 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make('Email', 'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Password::make('Password')
+            Password::make('Password', 'password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+            Number::make('Seasons', 'total_seasons')->sortable(),
+            Number::make('Snowdays', 'total_snowdays')->sortable(),
+            Number::make('Mountains', 'total_mountains')->sortable(),
+
+            DateTime::make('Email Verified At', 'email_verified_at')->hideFromIndex(),
+            DateTime::make('Last Logged In At', 'last_logged_in_at')->hideFromIndex(),
+            DateTime::make('Created At', 'created_at')->hideFromIndex(),
+            DateTime::make('Updated At', 'updated_at')->hideFromIndex(),
         ];
     }
 

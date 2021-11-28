@@ -20,6 +20,10 @@ class ChangeUserTimestampsToInts extends Migration
             if (Schema::hasColumn('users', 'updated_at')) {
                 $table->dropColumn('updated_at');
             }
+            if (Schema::hasColumn('users', 'email_verified_at')) {
+                $table->dropColumn('email_verified_at');
+            }
+            $table->string('password', 255)->nullable()->change();
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -28,6 +32,9 @@ class ChangeUserTimestampsToInts extends Migration
             }
             if (!Schema::hasColumn('users', 'updated_at')) {
                 $table->unsignedInteger('updated_at')->nullable()->after('created_at');
+            }
+            if (!Schema::hasColumn('users', 'email_verified_at')) {
+                $table->unsignedInteger('email_verified_at')->nullable()->after('email');
             }
         });
     }

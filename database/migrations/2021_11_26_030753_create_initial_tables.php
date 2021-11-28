@@ -65,19 +65,6 @@ class CreateInitialTables extends Migration
             $table->unsignedInteger('created_at')->nullable();
             $table->unsignedInteger('updated_at')->nullable();
         });
-
-        /*
-        Schema::create('seasons', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('coach_profile_id')->index();
-            $table->string('email')->index();
-            $table->text('review')->nullable();
-            $table->unsignedInteger('deleted_at')->nullable();
-            $table->unsignedInteger('created_at')->nullable();
-            $table->unsignedInteger('updated_at')->nullable();
-        });
-        */
     }
 
     /**
