@@ -47,6 +47,11 @@ class User extends SlopeSquadBaseModel implements
         'last_logged_in_at' => 'datetime',
     ];
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function getTotalMountains(): int
     {
         return $this->total_mountains ?? 0;

@@ -7,6 +7,8 @@ class HomepageController extends SlopeSquadBaseController
 {
     public function index(): View
     {
-        return view('homepage.index');
+        return view('homepage.index', [
+            'loggedInUser' => $this->getLoggedInUser(),
+        ]);
     }
 }

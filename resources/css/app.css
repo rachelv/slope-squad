@@ -22,4 +22,11 @@
     h5 {
         @apply text-lg;
     }
+
+    a {
+        @apply text-azure-darker;
+    }
+    a:hover {
+        @apply underline;
+    }
 }

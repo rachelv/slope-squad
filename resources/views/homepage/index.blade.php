@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">{{ page_title() }}</x-slot>
 
-    <x-containers.page>
+    <x-containers.page :logged-in-user="$loggedInUser">
         <div class="flex flex-col items-center space-y-4 my-8 text-center">
             <h1>Simple Ski Day Tracking For Avid Skiers</h1>
             <div class="space-y-1">
