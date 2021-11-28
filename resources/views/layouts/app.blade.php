@@ -7,7 +7,9 @@
 
         <title>{{ $title }}</title>
 
+        <script src="https://kit.fontawesome.com/abf7f32d1b.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap">
+
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>

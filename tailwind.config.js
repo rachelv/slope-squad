@@ -8,6 +8,12 @@ module.exports = {
     ],
 
     theme: {
+        container: {
+            center: true,
+            padding: {
+                DEFAULT: '0.5rem',
+              },
+        },
         extend: {
             fontFamily: {
                 'lato-sans': ['Lato', 'sans-serif'],
