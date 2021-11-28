@@ -1,14 +1,13 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\SlopeSquadBaseController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedSessionController extends SlopeSquadBaseController
 {
     /**
      * Display the login view.
