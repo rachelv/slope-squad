@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">{{ page_title('Confirm password') }}</x-slot>
 
-    <x-auth-card>
+    <x-containers.auth>
         <div class="mb-4 text-sm text-gray-600">
             {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
         </div>
@@ -28,5 +28,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
-</x-app-layout>
+    </x-containers.auth>
+ </x-app-layout>

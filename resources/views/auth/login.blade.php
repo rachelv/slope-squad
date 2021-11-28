@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">{{ page_title('Log in') }}</x-slot>
 
-    <x-auth-card>
+    <x-containers.auth>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -41,5 +41,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-containers.auth>
 </x-app-layout>

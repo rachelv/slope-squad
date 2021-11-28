@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">{{ page_title('Forgot password') }}</x-slot>
 
-    <x-auth-card>
+    <x-containers.auth>
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
@@ -28,5 +28,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-containers.auth>
 </x-app-layout>
