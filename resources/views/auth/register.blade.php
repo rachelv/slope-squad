@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-slot name="title">{{ page_title('Sign up') }}</x-slot>
+
     <x-auth-card>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />

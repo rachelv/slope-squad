@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-slot name="title">{{ page_title('Log in') }}</x-slot>
+
     <x-auth-card>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />

@@ -1,3 +1,4 @@
 <x-app-layout>
-sup
+    <x-slot name="title">{{ page_title() }}</x-slot>
+    sup
 </x-app-layout>
