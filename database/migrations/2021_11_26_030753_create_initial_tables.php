@@ -58,9 +58,9 @@ class CreateInitialTables extends Migration
             $table->integer('day_num');
             $table->date('date');
 
-            $table->string('title', 255);
-            $table->integer('vertical');
-            $table->text('notes');
+            $table->string('title', 255)->nullable();
+            $table->integer('vertical')->nullable();
+            $table->text('notes')->nullable();
 
             $table->unsignedInteger('created_at')->nullable();
             $table->unsignedInteger('updated_at')->nullable();

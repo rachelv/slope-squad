@@ -32,7 +32,7 @@ class Snowday extends SlopeSquadBaseModel
 
     public function getTitle(): string
     {
-        return $this->title;
+        return $this->title ?? '';
     }
 
     public function setTitle(string $title): void
@@ -42,7 +42,7 @@ class Snowday extends SlopeSquadBaseModel
 
     public function getVertical(): int
     {
-        return $this->vertical;
+        return $this->vertical ?? 0;
     }
 
     public function setVertical(int $vertical): void
@@ -52,7 +52,7 @@ class Snowday extends SlopeSquadBaseModel
 
     public function getNotes(): string
     {
-        return $this->notes;
+        return $this->notes ?? '';
     }
 
     public function setNotes(string $notes): void

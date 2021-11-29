@@ -3,6 +3,7 @@ namespace App\Console\Commands;
 
 use App\Models\Mountain;
 use App\Models\Season;
+use App\Models\Snowday;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -35,9 +36,55 @@ class ImportDataFromHeroku extends Command
             $this->importSeasons();
         } elseif ($table === 'users') {
             $this->importUsers();
+        } elseif ($table === 'snowdays') {
+            $this->importSnowdays();
         }
 
         return Command::SUCCESS;
+    }
+
+    private function importSnowdays(): void
+    {
+        $fields = [
+            'id',
+            'user_id',
+            'mountain_id',
+            'season_id',
+            'rank',
+            'day_num',
+            'date',
+            'title',
+            'vertical',
+            'notes',
+            'created_at',
+            'updated_at',
+        ];
+
+        Snowday::truncate();
+
+        foreach ($this->getFromHeroku('snowdays', $fields) as $idx => $sourceSnowday) {
+            // temporary: only import 10% of snowdays
+            if ($idx % 10 !== 0) {
+                continue;
+            }
+
+            $this->line("- [{$idx}] importing snowday {$sourceSnowday->id}");
+
+            $snowday = new Snowday();
+
+            foreach ($fields as $field) {
+                $sourceValue = $sourceSnowday->{$field};
+                if (in_array($field, ['notes', 'title'])) {
+                    $snowday->{$field} = utf8_encode($sourceValue);
+                } elseif ($field === 'mountain_id') {
+                    $snowday->{$field} = $sourceValue < 0 ? 0 : $sourceValue;
+                } else {
+                    $snowday->{$field} = $sourceValue;
+                }
+            }
+
+            $snowday->save();
+        }
     }
 
     private function importUsers(): void
