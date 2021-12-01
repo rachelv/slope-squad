@@ -25,6 +25,18 @@
             explore a map of everywhere you've skied
             see your most visited mountains over time
             easily keep up with your friends days
+
+            <i class="far fa-chart-bar fa-2x text-gray-700"></i>
+            <i class="far fa-calendar fa-2x text-gray-700"></i>
+            <i class="far fa-calendar-alt fa-2x text-gray-700"></i>
+            <i class="fas fa-user-friends fa-2x text-gray-700"></i>
+            <i class="fas fa-map-marker-alt fa-2x text-gray-700"></i>
+            <i class="fas fa-signal fa-2x text-gray-700"></i>
+            <i class="fas fa-mountain fa-2x text-gray-700"></i>
+            <i class="fas fa-skiing fa-2x text-gray-700"></i>
+            <i class="far fa-map fa-2x text-gray-700"></i>
+            <i class="far fa-snowflake fa-2x text-gray-700"></i>
+            <i class="far fa-sticky-note fa-2x text-gray-700"></i>
         --}}
 
     </x-containers.page>
