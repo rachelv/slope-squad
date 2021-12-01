@@ -11,6 +11,15 @@
             </div>
         </div>
 
+        <div class="space-y-2">
+            <h3>Most Recent Snowdays</h3>
+            @foreach($recentSnowdays as $snowday)
+                <p>
+                    <a href="{{ route('users.user', $snowday->getUser()) }}">{{ $snowday->getUser()->getName() }}</a>
+                    at <a href="{{ route('mountains.mountain', $snowday->getMountain()) }}">{{ $snowday->getDisplayTitle() }}</p></a>
+            @endforeach
+        </div>
+
         {{--
             compare stats across seasons
             explore a map of everywhere you've skied

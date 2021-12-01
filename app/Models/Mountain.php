@@ -3,6 +3,8 @@ namespace App\Models;
 
 class Mountain extends SlopeSquadBaseModel
 {
+    protected $table = 'mountains';
+
     public function getName(): string
     {
         return $this->name;

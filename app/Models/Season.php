@@ -5,6 +5,8 @@ class Season extends SlopeSquadBaseModel
 {
     use Traits\hasRank;
 
+    protected $table = 'seasons';
+
     public function getIsCurrent(): bool
     {
         return $this->is_current;

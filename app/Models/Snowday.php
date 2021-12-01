@@ -10,6 +10,19 @@ class Snowday extends SlopeSquadBaseModel
     use Traits\hasSeason;
     use Traits\hasUser;
 
+    protected $table = 'snowdays';
+
+    public function getDisplayTitle(): string
+    {
+        if ($this->getMountainId() > 0) {
+            return $this->getMountain()->getNickname();
+        } elseif (!empty($this->getTitle())) {
+            return $this->getTitle();
+        }
+
+        return '';
+    }
+
     public function getDayNum(): int
     {
         return $this->day_num;
