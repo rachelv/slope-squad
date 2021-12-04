@@ -1,9 +1,24 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Mountain extends SlopeSquadBaseModel
 {
     protected $table = 'mountains';
+
+    public function scopeWhereRegions(Builder $builder, string $region1, ?string $region2, ?string $region3): Builder
+    {
+        $builder = $builder->where('region_1', $region1);
+        if ($region2 !== null) {
+            $builder = $builder->where('region_2', $region2);
+        }
+        if ($region3 !== null) {
+            $builder = $builder->where('region_3', $region3);
+        }
+
+        return $builder;
+    }
 
     public function getName(): string
     {

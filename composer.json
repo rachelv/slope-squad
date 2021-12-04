@@ -35,7 +35,8 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/View/Helpers/Meta.php"
+            "app/View/Helpers/Meta.php",
+            "app/View/Helpers/Routes.php"
         ]
     },
     "repositories": [
