@@ -7,6 +7,11 @@ class Season extends SlopeSquadBaseModel
 
     protected $table = 'seasons';
 
+    public static function current(): Season
+    {
+        return Season::where('is_current', true)->first();
+    }
+
     public function getIsCurrent(): bool
     {
         return $this->is_current;
