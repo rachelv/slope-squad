@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 class Snowday extends SlopeSquadBaseModel
 {
@@ -33,12 +33,12 @@ class Snowday extends SlopeSquadBaseModel
         $this->day_num = $dayNum;
     }
 
-    public function getDate(): Date
+    public function getDate(): Carbon
     {
-        return $this->date;
+        return Carbon::createFromFormat('Y-m-d', $this->date);
     }
 
-    public function setDate(Date $date): void
+    public function setDate(Carbon $date): void
     {
         $this->date = $date;
     }

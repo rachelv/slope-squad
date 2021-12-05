@@ -2,11 +2,17 @@
 namespace App\Models\Traits;
 
 use App\Models\Mountain;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 trait hasMountain
 {
     private $mountainObj = null;
+
+    public function scopeWhereMountainId(Builder $builder, int $mountainId): Builder
+    {
+        return $builder->where('mountain_id', $mountainId);
+    }
 
     public function getMountain(): Mountain
     {
