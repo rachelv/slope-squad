@@ -35,6 +35,9 @@ class Snowday extends SlopeSquadBaseModel
 
     public function getDate(): Carbon
     {
+        // todo: think I need to explicitly make this noon
+        // otherwise carbon defaults to time in current timezone
+        // and I'm not sure that will always return the same date?
         return Carbon::createFromFormat('Y-m-d', $this->date);
     }
 
