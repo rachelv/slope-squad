@@ -15,6 +15,7 @@ Route::prefix('browse')->group(function () {
     Route::get('/mountains', [BrowseController::class, 'mountains'])
         ->name('browse.mountains');
 
+    // todo: add isSlug() param validation
     Route::get('/mountains/{region1?}/{region2?}/{region3?}', [BrowseController::class, 'region'])
         ->name('browse.region');
 });
