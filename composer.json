@@ -35,6 +35,7 @@
             "Tests\\": "tests/"
         },
         "files": [
+            "app/View/Helpers/DateTime.php",
             "app/View/Helpers/Meta.php",
             "app/View/Helpers/Routes.php"
         ]
