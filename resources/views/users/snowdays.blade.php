@@ -3,9 +3,9 @@
 
     <x-containers.page :logged-in-user="$loggedInUser">
 
-        <x-user.user-nav :user="$user" active="index"/>
+        <x-user.user-nav :user="$user" active="snowdays"/>
 
-        {{ $user->getName() }}
+        {{ $user->getName() }} snowdays
 
     </x-containers.page>
 </x-app-layout>

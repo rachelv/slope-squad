@@ -23,6 +23,18 @@ Route::prefix('browse')->group(function () {
 Route::prefix('members')->group(function () {
     Route::get('/{id}', [UsersController::class, 'user'])
         ->name('users.user');
+
+    Route::get('/{id}/mountains', [UsersController::class, 'mountains'])
+        ->name('users.mountains');
+
+    Route::get('/{id}/seasons', [UsersController::class, 'seasons'])
+        ->name('users.seasons');
+
+    Route::get('/{id}/snowdays', [UsersController::class, 'snowdays'])
+        ->name('users.snowdays');
+
+    Route::get('/{id}/following', [UsersController::class, 'following'])
+        ->name('users.following');
 });
 
 Route::prefix('mountains')->group(function () {

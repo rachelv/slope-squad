@@ -15,4 +15,44 @@ class UsersController extends SlopeSquadBaseController
             'user' => $user,
         ]);
     }
+
+    public function seasons(int $id): View
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.seasons', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+        ]);
+    }
+
+    public function mountains(int $id): View
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.mountains', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+        ]);
+    }
+
+    public function snowdays(int $id): View
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.snowdays', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+        ]);
+    }
+
+    public function following(int $id): View
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.following', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+        ]);
+    }
 }
