@@ -11,6 +11,8 @@
             </div>
         </div>
 
+        <livewire:mountain-dropdown/>
+
         <div class="space-y-2">
             <h3>Most Recent Snowdays</h3>
             @foreach($recentSnowdays as $snowday)
