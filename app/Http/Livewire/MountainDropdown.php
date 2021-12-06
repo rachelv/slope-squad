@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class MountainDropdown extends Component
 {
+    // search when there are this many characters or more
     const MIN_SEARCH_STRLEN = 3;
 
     public string $search = '';
