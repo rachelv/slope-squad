@@ -23,11 +23,12 @@ class MountainDropdown extends Component
     private function getMountains(): Collection
     {
         if (strlen($this->search) < self::MIN_SEARCH_STRLEN) {
-            return Mountain::orderBy('name')->orderBy('region_3')->get();
+            return Mountain::active()->orderBy('name')->orderBy('region_3')->get();
         } else {
             $expression = "%{$this->search}%";
 
-            return Mountain::where('name', 'like', $expression)
+            return Mountain::active()
+                ->where('name', 'like', $expression)
                 ->orWhere('short_name', 'like', $expression)
                 ->orderBy('name')
                 ->orderBy('region_3')

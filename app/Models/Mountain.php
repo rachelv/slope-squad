@@ -7,6 +7,11 @@ class Mountain extends SlopeSquadBaseModel
 {
     protected $table = 'mountains';
 
+    public function scopeActive(Builder $builder): Builder
+    {
+        return $builder->where('is_active', true);
+    }
+
     public function scopeWhereRegions(Builder $builder, string $region1, ?string $region2, ?string $region3): Builder
     {
         $builder = $builder->where('region_1', $region1);
