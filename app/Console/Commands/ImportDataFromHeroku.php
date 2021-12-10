@@ -5,6 +5,7 @@ use App\Models\Mountain;
 use App\Models\Season;
 use App\Models\Snowday;
 use App\Models\User;
+use App\Models\UserFollowing;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class ImportDataFromHeroku extends Command
         'seasons',
         'snowdays',
         'users',
+        'users_following',
     ];
 
     public function handle()
@@ -38,6 +40,8 @@ class ImportDataFromHeroku extends Command
             $this->importUsers();
         } elseif ($table === 'snowdays') {
             $this->importSnowdays();
+        } elseif ($table === 'users_following') {
+            $this->importFollowers();
         }
 
         return Command::SUCCESS;
@@ -194,6 +198,34 @@ class ImportDataFromHeroku extends Command
             }
 
             $season->save();
+        }
+    }
+
+    private function importFollowers(): void
+    {
+        $fields = [
+            'user_id',
+            'friend_user_id',
+            'created_at',
+            'updated_at',
+        ];
+
+        Season::truncate();
+
+        foreach ($this->getFromHeroku('friends', $fields) as $sourceFollowing) {
+            $this->line("- importing {$sourceFollowing->user_id} : {$sourceFollowing->friend_user_id}");
+
+            $userFollowing = new UserFollowing();
+
+            foreach ($fields as $field) {
+                if ($field === 'friend_user_id') {
+                    $userFollowing->following_user_id = $sourceFollowing->friend_user_id;
+                } else {
+                    $userFollowing->{$field} = $sourceFollowing->{$field};
+                }
+            }
+
+            $userFollowing->save();
         }
     }
 
