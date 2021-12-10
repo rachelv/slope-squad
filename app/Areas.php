@@ -27,7 +27,7 @@ class Areas
          */
         $level3 = collect();
 
-        $allDistinctRegions = DB::table('mountains')->select(DB::raw('distinct region_1, region_2, region_3'))->get();
+        $allDistinctRegions = DB::table('mountains')->distinct()->get(['region_1', 'region_2', 'region_3']);
 
         foreach ($allDistinctRegions as $regionGroup) {
             $region1 = $regionGroup->region_1;
