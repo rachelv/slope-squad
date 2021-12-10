@@ -50,9 +50,12 @@ class UsersController extends SlopeSquadBaseController
     {
         $user = User::findOrFail($id);
 
+        $followingUsers = $user->getFollowingUsers();
+
         return view('users.following', [
             'loggedInUser' => $this->getLoggedInUser(),
             'user' => $user,
+            'followingUsers' => $followingUsers,
         ]);
     }
 }

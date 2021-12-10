@@ -5,7 +5,14 @@
 
         <x-user.user-nav :user="$user" active="following"/>
 
-        {{ $user->getName() }} following
+        <h2>{{ $user->getName() }} following</h2>
 
+        @forelse ($followingUsers as $user)
+            <div>
+                <a href="{{ route('users.user', $user) }}">{{ $user->getName() }}</a>
+            </div>
+        @empty
+            <p>{{ $user->getName() }} isn't following anyone yet</p>
+        @endforelse
     </x-containers.page>
 </x-app-layout>

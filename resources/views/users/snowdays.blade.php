@@ -5,7 +5,7 @@
 
         <x-user.user-nav :user="$user" active="snowdays"/>
 
-        {{ $user->getName() }} snowdays
+        <h2>{{ $user->getName() }} snowdays</h2>
 
     </x-containers.page>
 </x-app-layout>

@@ -7,7 +7,7 @@
     $activeClasses = 'underline font-bold';
 @endphp
 
-<ul>
+<ul class="flex my-4 space-x-2">
     <li><a class="{{ $active == 'index' ? $activeClasses : '' }}" href="{{ route('users.user', $user) }}">Index</a></li>
     <li><a class="{{ $active == 'seasons' ? $activeClasses : '' }}" href="{{ route('users.seasons', $user) }}">Seasons</a></li>
     <li><a class="{{ $active == 'mountains' ? $activeClasses : '' }}" href="{{ route('users.mountains', $user) }}">Mountains</a></li>

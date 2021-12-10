@@ -9,8 +9,10 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends SlopeSquadBaseModel implements
@@ -48,6 +50,11 @@ class User extends SlopeSquadBaseModel implements
         'email_verified_at' => 'datetime',
         'last_logged_in_at' => 'datetime',
     ];
+
+    public function getFollowingUsers(): Collection
+    {
+        return $this->followingUsers;
+    }
 
     public function getName(): string
     {
@@ -102,5 +109,10 @@ class User extends SlopeSquadBaseModel implements
     public function setLastLoggedInAt(int $lastLoggedInAt): void
     {
         $this->last_logged_in_at = $lastLoggedInAt;
+    }
+
+    public function followingUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, UserFollowing::class, 'user_id', 'following_user_id');
     }
 }
