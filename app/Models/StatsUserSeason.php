@@ -26,12 +26,12 @@ class StatsUserSeason extends SlopeSquadBaseModel
 
     public function getTotalMountains(): int
     {
-        return $this->total_moundains ?? 0;
+        return $this->total_mountains ?? 0;
     }
 
     public function setTotalMountains(int $totalMountains): void
     {
-        $this->total_moundains = $totalMountains;
+        $this->total_mountains = $totalMountains;
     }
 
     public function getTotalVertical(): int
