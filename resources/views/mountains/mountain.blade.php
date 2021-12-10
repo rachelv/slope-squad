@@ -18,9 +18,9 @@
 
         <div class="my-2 space-y-2">
             <h3>Most Snowdays in {{ $currentSeason->getShortName() }}</h3>
-            @forelse($topUsersSeason as $countUser)
+            @forelse($topUsersSeason as $seasonMountainStats)
                 <p>
-                    <strong>{{ $countUser->getCount() }}</strong>: <a href="{{ route('users.user', $countUser->getUser()) }}">{{ $countUser->getUser()->getName() }}</a>
+                    <strong>{{ $seasonMountainStats->getTotalSnowdays() }}</strong>: <a href="{{ route('users.user', $seasonMountainStats->getUser()) }}">{{ $seasonMountainStats->getUser()->getName() }}</a>
                 </p>
             @empty
                 <p>none yet</p>
@@ -29,9 +29,9 @@
 
         <div class="my-2 space-y-2">
             <h3>Most Snowdays All Time</h3>
-            @forelse($topUsersOverall as $countUser)
+            @forelse($topUsersOverall as $mountainStats)
                 <p>
-                    <strong>{{ $countUser->getCount() }}</strong>: <a href="{{ route('users.user', $countUser->getUser()) }}">{{ $countUser->getUser()->getName() }}</a>
+                    <strong>{{ $mountainStats->getTotalSnowdays() }}</strong>: <a href="{{ route('users.user', $mountainStats->getUser()) }}">{{ $mountainStats->getUser()->getName() }}</a>
                 </p>
             @empty
                 <p>none yet</p>

@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Mountain;
 use App\Models\Season;
 use App\Models\Snowday;
-use App\Models\User;
-use App\View\Models\CountUser;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use App\Models\StatsUserMountain;
+use App\Models\StatsUserSeasonMountain;
 use Illuminate\View\View;
 
 class MountainsController extends SlopeSquadBaseController
@@ -31,9 +29,19 @@ class MountainsController extends SlopeSquadBaseController
         $currentSeason = Season::current();
 
         // most snowdays here all time
-        $topUsersOverall = $this->getTopUsers($mountain->getId(), self::NUM_TOP_ALL_TIME_USERS, $seasonId = 0);
+        $topUsersOverall = StatsUserMountain::with(['user'])
+            ->whereMountainId($mountain->getId())
+            ->orderByDesc('total_snowdays')
+            ->limit(self::NUM_TOP_ALL_TIME_USERS)
+            ->get();
+
         // most snowdays here this season
-        $topUsersSeason = $this->getTopUsers($mountain->getId(), self::NUM_TOP_SEASON_USERS, $seasonId = $currentSeason->getId());
+        $topUsersSeason = StatsUserSeasonMountain::with(['user'])
+            ->whereMountainId($mountain->getId())
+            ->whereSeasonId($currentSeason->getId())
+            ->orderByDesc('total_snowdays')
+            ->limit(self::NUM_TOP_SEASON_USERS)
+            ->get();
 
         return view('mountains.mountain', [
             'loggedInUser' => $this->getLoggedInUser(),
@@ -43,29 +51,5 @@ class MountainsController extends SlopeSquadBaseController
             'topUsersOverall' => $topUsersOverall,
             'topUsersSeason' => $topUsersSeason,
         ]);
-    }
-
-    private function getTopUsers(int $mountainId, int $limit, int $seasonId): Collection
-    {
-        $countAndUserIds = DB::table('snowdays')
-            ->select(DB::raw('count(*) as num_days, user_id'))
-            ->where('mountain_id', $mountainId)
-            ->when($seasonId > 0, function ($query) use ($seasonId) {
-                return $query->where('season_id', $seasonId);
-            })
-            ->groupBy('user_id')
-            ->orderByDesc('num_days')
-            ->limit(self::NUM_TOP_ALL_TIME_USERS)
-            ->get();
-
-        $userIds = $countAndUserIds->map(function ($row) {
-            return $row->user_id;
-        });
-
-        $users = User::whereIn('id', $userIds)->get()->keyBy('id');
-
-        return $countAndUserIds->map(function ($row) use ($users) {
-            return new CountUser($users->get($row->user_id), $row->num_days);
-        });
     }
 }
