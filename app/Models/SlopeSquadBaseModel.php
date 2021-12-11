@@ -20,6 +20,11 @@ class SlopeSquadBaseModel extends Model
         return $this->id;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;

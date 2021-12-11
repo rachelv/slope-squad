@@ -14,8 +14,21 @@ trait hasMountain
         return $builder->where('mountain_id', $mountainId);
     }
 
+    public function isAtMountain(): bool
+    {
+        return $this->getMountainId() > 0;
+    }
+
+    public function isBackcountry(): bool
+    {
+        return $this->getMountainId() === 0;
+    }
+
     public function getMountain(): Mountain
     {
+        if ($this->isBackcountry()) {
+            return Mountain::getBackcountryMock();
+        }
         if ($this->mountainObj === null) {
             $this->mountainObj = $this->mountain;
         }

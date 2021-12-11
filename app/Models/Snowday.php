@@ -14,8 +14,10 @@ class Snowday extends SlopeSquadBaseModel
 
     public function getDisplayTitle(): string
     {
-        if ($this->getMountainId() > 0) {
+        if ($this->isAtMountain()) {
             return $this->getMountain()->getNickname();
+        } elseif ($this->isBackcountry()) {
+            return Mountain::getBackcountryMock()->getName();
         } elseif (!empty($this->getTitle())) {
             return $this->getTitle();
         }

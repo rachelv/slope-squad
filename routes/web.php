@@ -20,20 +20,29 @@ Route::prefix('browse')->group(function () {
         ->name('browse.region');
 });
 
-Route::prefix('members')->group(function () {
-    Route::get('/{id}', [UsersController::class, 'user'])
+Route::prefix('members/{id}')->group(function () {
+    Route::get('/', [UsersController::class, 'user'])
         ->name('users.user');
 
-    Route::get('/{id}/mountains', [UsersController::class, 'mountains'])
+    Route::get('/mountains', [UsersController::class, 'mountains'])
         ->name('users.mountains');
 
-    Route::get('/{id}/seasons', [UsersController::class, 'seasons'])
+    Route::get('/mountains/{mountainId}', [UsersController::class, 'mountain'])
+        ->name('users.mountain');
+
+    Route::get('/seasons', [UsersController::class, 'seasons'])
         ->name('users.seasons');
 
-    Route::get('/{id}/snowdays', [UsersController::class, 'snowdays'])
+    Route::get('/seasons/{seasonId}', [UsersController::class, 'season'])
+        ->name('users.season');
+
+    Route::get('/snowdays', [UsersController::class, 'snowdays'])
         ->name('users.snowdays');
 
-    Route::get('/{id}/following', [UsersController::class, 'following'])
+    Route::get('/snowdays/{snowdayId}', [UsersController::class, 'snowday'])
+        ->name('users.snowday');
+
+    Route::get('/following', [UsersController::class, 'following'])
         ->name('users.following');
 });
 

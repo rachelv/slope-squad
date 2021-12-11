@@ -1,6 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Mountain;
+use App\Models\Season;
+use App\Models\Snowday;
+use App\Models\StatsUserMountain;
+use App\Models\StatsUserSeason;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -20,9 +25,29 @@ class UsersController extends SlopeSquadBaseController
     {
         $user = User::findOrFail($id);
 
+        $seasonStats = StatsUserSeason::with(['season'])
+            ->whereUserId($user->getId())
+            ->get()
+            ->sortByDesc(function (StatsUserSeason $seasonStat) {
+                return $seasonStat->getSeason()->getRank();
+            });
+
         return view('users.seasons', [
             'loggedInUser' => $this->getLoggedInUser(),
             'user' => $user,
+            'seasonStats' => $seasonStats,
+        ]);
+    }
+
+    public function season(int $id, int $seasonId): View
+    {
+        $user = User::findOrFail($id);
+        $season = Season::findOrFail($seasonId);
+
+        return view('users.season', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+            'season' => $season,
         ]);
     }
 
@@ -30,9 +55,27 @@ class UsersController extends SlopeSquadBaseController
     {
         $user = User::findOrFail($id);
 
+        $mountainStats = StatsUserMountain::with(['mountain'])
+            ->whereUserId($user->getId())
+            ->orderByDesc('total_snowdays')
+            ->get();
+
         return view('users.mountains', [
             'loggedInUser' => $this->getLoggedInUser(),
             'user' => $user,
+            'mountainStats' => $mountainStats,
+        ]);
+    }
+
+    public function mountain(int $id, int $mountainId): View
+    {
+        $user = User::findOrFail($id);
+        $mountain = Mountain::findOrFail($mountainId);
+
+        return view('users.mountain', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+            'mountain' => $mountain,
         ]);
     }
 
@@ -40,9 +83,28 @@ class UsersController extends SlopeSquadBaseController
     {
         $user = User::findOrFail($id);
 
+        $snowdays = Snowday::with(['mountain', 'season'])
+            ->whereUserId($user->getId())
+            ->limit(50)
+            ->orderByDesc('date')
+            ->get();
+
         return view('users.snowdays', [
             'loggedInUser' => $this->getLoggedInUser(),
             'user' => $user,
+            'snowdays' => $snowdays,
+        ]);
+    }
+
+    public function snowday(int $id, int $snowdayId): View
+    {
+        $user = User::findOrFail($id);
+        $snowday = Snowday::findOrFail($snowdayId);
+
+        return view('users.snowday', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'user' => $user,
+            'snowday' => $snowday,
         ]);
     }
 

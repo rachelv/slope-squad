@@ -7,6 +7,15 @@ class Mountain extends SlopeSquadBaseModel
 {
     protected $table = 'mountains';
 
+    public static function findOrFail($id, $columns = ['*'])
+    {
+        if ($id === 0) {
+            return Mountain::getBackcountryMock();
+        }
+
+        return Mountain::findOrFail($id, $columns);
+    }
+
     public function scopeActive(Builder $builder): Builder
     {
         return $builder->where('is_active', true);
@@ -25,9 +34,22 @@ class Mountain extends SlopeSquadBaseModel
         return $builder;
     }
 
+    public static function getBackcountryMock(): Mountain
+    {
+        $mountain = new Mountain();
+        $mountain->setId(0);
+        $mountain->setName('Backcountry');
+        return $mountain;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 
     public function getNickname(): string
