@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="25px" height="16px" viewBox="0 0 25 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs/>
+    <g id="Header" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Headers" transform="translate(-336.000000, -926.000000)" fill="#FFFFFF">
+            <g id="Menu" transform="translate(336.000000, 926.000000)">
+                <path d="M23.7003661,7 L0.81761203,7 C0.365693778,7 0.0004,7.448 0.0004,8 C0.0004,8.552 0.365693778,9 0.81761203,9 L23.7003661,9 C24.1514671,9 24.5175781,8.552 24.5175781,8 C24.5175781,7.448 24.1514671,7 23.7003661,7 Z M23.7003661,14 L0.81761203,14 C0.365693778,14 0.0004,14.448 0.0004,15 C0.0004,15.552 0.365693778,16 0.81761203,16 L23.7003661,16 C24.1514671,16 24.5175781,15.552 24.5175781,15 C24.5175781,14.448 24.1514671,14 23.7003661,14 Z M23.7003661,0 L0.81761203,0 C0.365693778,0 0.0004,0.448 0.0004,1 C0.0004,1.552 0.365693778,2 0.81761203,2 L23.7003661,2 C24.1514671,2 24.5175781,1.552 24.5175781,1 C24.5175781,0.448 24.1514671,0 23.7003661,0 Z" id="Combined-Shape"/>
+            </g>
+        </g>
+    </g>
+</svg>

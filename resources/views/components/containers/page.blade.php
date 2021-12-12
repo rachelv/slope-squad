@@ -1,15 +1,23 @@
-<div class="bg-azure border-b-2 border-space">
+<div class="bg-azure border-b border-gray-300 shadow-md">
     <div class="container py-2">
         <div class="flex justify-between items-center">
-            <a class="block" href="/"><img src="/img/logo/white.png" width="130" alt="Slope Squad logo"/></a>
+            <div class="flex space-x-5">
+                <a class="block -mt-1" href="/"><img src="/img/logo/white.png" width="130" alt="Slope Squad logo"/></a>
+                <div class="mt-2 flex space-x-3">
+                    <a class="block text-white" href="">Mountains</a>
+                    <a class="block text-white" href="">Members</a>
+                </div>
+            </div>
             @auth
-                <div x-data="{ open: false }" class="flex items-center space-x-2 relative">
-                    <i @click.prevent="open = !open" x-show="!open" class="fas fa-bars fa-2x text-white px-4 hover:cursor-pointer"></i>
-                    <i @click.prevent="open = !open" x-show="open" x-cloak class="fas fa-times fa-2x text-white px-4 hover:cursor-pointer"></i>
-                    <x-button>Add a Day</x-button>
+                <div x-data="{ open: false }" class="flex items-center relative">
+                    <div class="flex items-center space-x-2">
+                        <img @click.prevent="open = !open" class="inline-block px-4 py-3 hover:cursor-pointer" src="/img/icons/hamburger.svg"/>
+                        <x-button class="hidden sm:inline-block">Add a Day</x-button>
+                    </div>
 
                     <div x-show="open" x-cloak @click.away="open = false" class="absolute top-11 w-full bg-white shadow-md rounded-md px-5 py-4 space-y-4">
                         <p>Hi, {{ $loggedInUser->getName() }}</p>
+                        <a class="block sm:hidden font-bold text-lime" href="#">Add a day</a>
                         <hr class="-mx-2"/>
                         <div class="space-y-3">
                             <a class="block" href="#">I'm a bit longer</a>
