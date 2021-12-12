@@ -7,9 +7,10 @@
 
         <h2>{{ $user->getName() }} following</h2>
 
-        @forelse ($followingUsers as $user)
+        @forelse ($followingUsers as $followingUser)
             <div>
-                <a href="{{ route('users.user', $user) }}">{{ $user->getName() }}</a>
+                <span>{{ $followingUser->getFollowingUserStats()->getTotalSnowdays() }}</span>
+                <a href="{{ route('users.user', $followingUser->getFollowingUser()) }}">{{ $followingUser->getFollowingUser()->getName() }}</a>
             </div>
         @empty
             <p>{{ $user->getName() }} isn't following anyone yet</p>

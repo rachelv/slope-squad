@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserFollowing extends SlopeSquadBaseModel
@@ -8,6 +9,21 @@ class UserFollowing extends SlopeSquadBaseModel
     use Traits\hasUser;
 
     protected $table = 'users_following';
+
+    private $followingUserObj = null;
+
+    public function getFollowingUser(): User
+    {
+        if ($this->followingUserObj === null) {
+            $this->followingUserObj = $this->followingUser;
+        }
+        return $this->followingUserObj;
+    }
+
+    public function getFollowingUserStats(): StatsUserSeason
+    {
+        return $this->followingUserStats;
+    }
 
     public function getFollowingUserId(): int
     {
@@ -19,7 +35,12 @@ class UserFollowing extends SlopeSquadBaseModel
         $this->following_user_id = $followingUserId;
     }
 
-    public function currentSeasonFollowerStats(): HasOne
+    public function followingUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'following_user_id', 'id');
+    }
+
+    public function followingUserStats(): HasOne
     {
         $currentSeasonId = Season::current()->getId();
 

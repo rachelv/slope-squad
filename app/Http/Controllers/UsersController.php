@@ -7,6 +7,7 @@ use App\Models\Snowday;
 use App\Models\StatsUserMountain;
 use App\Models\StatsUserSeason;
 use App\Models\User;
+use App\Models\UserFollowing;
 use Illuminate\View\View;
 
 class UsersController extends SlopeSquadBaseController
@@ -112,7 +113,12 @@ class UsersController extends SlopeSquadBaseController
     {
         $user = User::findOrFail($id);
 
-        $followingUsers = $user->getFollowingUsers();
+        $followingUsers = UserFollowing::with(['followingUser', 'followingUserStats'])
+            ->whereUserId($user->getId())
+            ->get()
+            ->sortByDesc(function (UserFollowing $userFollowing) {
+                return $userFollowing->getFollowingUserStats()->getTotalSnowdays();
+            });
 
         return view('users.following', [
             'loggedInUser' => $this->getLoggedInUser(),
