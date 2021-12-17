@@ -8,10 +8,28 @@ use App\Models\StatsUserMountain;
 use App\Models\StatsUserSeason;
 use App\Models\User;
 use App\Models\UserFollowing;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class UsersController extends SlopeSquadBaseController
 {
+    const USER_BROWSE_LISTS_LIMIT = 10;
+
+    public function browse(): View
+    {
+        $recentlyActiveUsers = $this->getRecentlyActiveUsers();
+        $newestUsers = User::orderByNewest()->limit(self::USER_BROWSE_LISTS_LIMIT)->get();
+
+        $allUsers = User::where('total_seasons', '>', 1)->orderBy('name')->get();
+
+        return view('users.browse', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'allUsers' => $allUsers,
+            'recentlyActiveUsers' => $recentlyActiveUsers,
+            'newestUsers' => $newestUsers,
+        ]);
+    }
+
     public function user(int $id): View
     {
         $user = User::findOrFail($id);
@@ -125,5 +143,17 @@ class UsersController extends SlopeSquadBaseController
             'user' => $user,
             'followingUsers' => $followingUsers,
         ]);
+    }
+
+    private function getRecentlyActiveUsers(): Collection
+    {
+        $userIds = Snowday::orderByDesc('date')
+            ->limit(50)
+            ->get()
+            ->pluck('user_id')
+            ->unique()
+            ->random(self::USER_BROWSE_LISTS_LIMIT);
+
+        return User::whereIn('id', $userIds)->get();
     }
 }

@@ -10,32 +10,43 @@ require __DIR__ . '/auth.php';
 Route::get('/', [HomepageController::class, 'index'])
     ->name('homepage');
 
-Route::prefix('members/{id}')->group(function () {
-    Route::get('/', [UsersController::class, 'user'])
+Route::prefix('members')->group(function () {
+    Route::get('/', [UsersController::class, 'browse'])
+        ->name('users.browse');
+
+    Route::get('/{id}', [UsersController::class, 'user'])
+        ->whereNumber('id')
         ->name('users.user');
 
-    Route::get('/mountains', [UsersController::class, 'mountains'])
+    Route::get('/{id}/mountains', [UsersController::class, 'mountains'])
+        ->whereNumber('id')
         ->name('users.mountains');
 
-    Route::get('/mountains/{mountainId}', [UsersController::class, 'mountain'])
+    Route::get('/{id}/mountains/{mountainId}', [UsersController::class, 'mountain'])
+        ->whereNumber('id')
         ->whereNumber('mountainId')
         ->name('users.mountain');
 
-    Route::get('/seasons', [UsersController::class, 'seasons'])
+    Route::get('/{id}/seasons', [UsersController::class, 'seasons'])
+        ->whereNumber('id')
         ->name('users.seasons');
 
-    Route::get('/seasons/{seasonId}', [UsersController::class, 'season'])
+    Route::get('/{id}/seasons/{seasonId}', [UsersController::class, 'season'])
+        ->whereNumber('id')
         ->whereNumber('seasonId')
         ->name('users.season');
 
-    Route::get('/snowdays', [UsersController::class, 'snowdays'])
+    Route::get('/{id}/snowdays', [UsersController::class, 'snowdays'])
+        ->whereNumber('id')
         ->name('users.snowdays');
 
-    Route::get('/snowdays/{snowdayId}', [UsersController::class, 'snowday'])
+    Route::get('/{id}/snowdays/{snowdayId}', [UsersController::class, 'snowday'])
+        ->whereNumber('id')
         ->whereNumber('snowdayId')
         ->name('users.snowday');
 
-    Route::get('/following', [UsersController::class, 'following'])
+    Route::get('/{id}/following', [UsersController::class, 'following'])
+        ->whereNumber('id')
         ->name('users.following');
 });
 
