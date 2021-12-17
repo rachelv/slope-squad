@@ -10,7 +10,7 @@
                 <h3 class="ml-4">{{ $level2 }}</h3>
 
                 @foreach($level3areas->get($level1 . ':' . $level2) as $level3)
-                    <h4 class="ml-8"><a href="{{ route_browse($level1, $level2, $level3) }}">{{ $level3 }}</a></h4>
+                    <h4 class="ml-8"><a href="{{ route_browse_mountains($level1, $level2, $level3) }}">{{ $level3 }}</a></h4>
                 @endforeach
 
             @endforeach

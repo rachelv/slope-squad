@@ -7,14 +7,16 @@ class Mountain extends SlopeSquadBaseModel
 {
     protected $table = 'mountains';
 
+    /* this is an infinite loop lololol
     public static function findOrFail($id, $columns = ['*'])
     {
         if ($id === 0) {
             return Mountain::getBackcountryMock();
         }
 
-        return Mountain::findOrFail($id, $columns);
+        return parent::findOrFail($id, $columns);
     }
+    */
 
     public function scopeActive(Builder $builder): Builder
     {

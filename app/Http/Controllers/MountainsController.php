@@ -1,11 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Areas;
 use App\Models\Mountain;
 use App\Models\Season;
 use App\Models\Snowday;
 use App\Models\StatsUserMountain;
 use App\Models\StatsUserSeasonMountain;
+use App\SlopeSquadStr;
 use Illuminate\View\View;
 
 class MountainsController extends SlopeSquadBaseController
@@ -50,6 +52,32 @@ class MountainsController extends SlopeSquadBaseController
             'recentSnowdays' => $snowdays,
             'topUsersOverall' => $topUsersOverall,
             'topUsersSeason' => $topUsersSeason,
+        ]);
+    }
+
+    public function browse(): View
+    {
+        $areas = Areas::getAreaHierarchy();
+
+        return view('mountains.browse', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'level1areas' => $areas[0],
+            'level2areas' => $areas[1],
+            'level3areas' => $areas[2],
+        ]);
+    }
+
+    public function browseRegion(string $region1, ?string $region2 = null, ?string $region3 = null)
+    {
+        $region1 = SlopeSquadStr::fromSlug($region1);
+        $region2 = SlopeSquadStr::fromSlug($region2);
+        $region3 = SlopeSquadStr::fromSlug($region3);
+
+        $mountains = Mountain::whereRegions($region1, $region2, $region3)->get();
+
+        return view('mountains.browse-region', [
+            'loggedInUser' => $this->getLoggedInUser(),
+            'mountains' => $mountains,
         ]);
     }
 }

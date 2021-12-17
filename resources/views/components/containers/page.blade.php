@@ -4,7 +4,7 @@
             <div class="flex space-x-5">
                 <a class="block -mt-1" href="/"><img src="/img/logo/white.png" width="130" alt="Slope Squad logo"/></a>
                 <div class="mt-2 flex space-x-3">
-                    <a class="block text-white" href="">Mountains</a>
+                    <a class="block text-white" href="{{ route('mountains.browse') }}">Mountains</a>
                     <a class="block text-white" href="">Members</a>
                 </div>
             </div>
